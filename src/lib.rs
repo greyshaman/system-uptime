@@ -45,6 +45,7 @@ pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
 pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
     use libc::{sysctl, timeval};
     use std::mem;
+    use std::io;
 
     let mut mib = [libc::CTL_KERN, libc::KERN_BOOTTIME];
     let mut boot_time = timeval { tv_sec: 0, tv_usec: 0 };
@@ -68,7 +69,19 @@ pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
         Ok(uptime_seconds as u64 * 1000)
     }
 }
+#[cfg(not(any(
+    target_os = "windows",
+    target_os = "linux",
+    target_os = "android",
+    target_os = "macos",
+    target_os = "ios",
+    target_os = "freebsd"
+)))]
+pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
+    Err("Unsupported operating system".into())
+}
 
+/// Returns OS uptime in useful Duration format
 pub fn get_os_uptime_duration() -> Result<Duration, Box<dyn Error>> {
     let ms = get_os_uptime()?;
     Ok(Duration::from_millis(ms))
@@ -85,7 +98,7 @@ mod tests {
         assert!(uptime.is_ok(), "Failed to get os uptime: {:?}", uptime.err());
 
         let uptime_ms = uptime.unwrap();
-        assert!(uptime_ms > 0, "Uptime should be greater then 0");
+        assert!(uptime_ms > 0, "Uptime should be greater than 0");
 
         let duration = get_os_uptime_duration().unwrap();
         assert_eq!(duration.as_millis() as u64, uptime_ms);
