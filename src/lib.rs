@@ -28,7 +28,8 @@ pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
 }
 #[cfg(target_os = "windows")]
 pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
-    use winapi::um::sysinfoapi::{GetTickCount64, GetLastError};
+    use winapi::um::sysinfoapi::GetTickCount64;
+    use winapi::um::errhandlingapi::GetLastError;
 
     unsafe {
         let uptime_ms = GetTickCount64();
