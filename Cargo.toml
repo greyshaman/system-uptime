@@ -1,0 +1,8 @@
+[package]
+name = "system-uptime"
+version = "0.1.0"
+edition = "2024"
+authors = ["Sergey Reshetnikov <shaman@simmirra.com>"]
+
+[dependencies]
+libc = "0.2"
