@@ -28,8 +28,8 @@ pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
 }
 #[cfg(target_os = "windows")]
 pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
-    use winapi::um::sysinfoapi::GetTickCount64;
     use winapi::um::errhandlingapi::GetLastError;
+    use winapi::um::sysinfoapi::GetTickCount64;
 
     unsafe {
         let uptime_ms = GetTickCount64();
@@ -45,11 +45,14 @@ pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
 #[cfg(any(target_os = "macos", target_os = "ios", target_os = "freebsd"))]
 pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
     use libc::{sysctl, timeval};
-    use std::mem;
     use std::io;
+    use std::mem;
 
     let mut mib = [libc::CTL_KERN, libc::KERN_BOOTTIME];
-    let mut boot_time = timeval { tv_sec: 0, tv_usec: 0 };
+    let mut boot_time = timeval {
+        tv_sec: 0,
+        tv_usec: 0,
+    };
     let mut size = mem::size_of_val(&boot_time);
 
     unsafe {
@@ -59,7 +62,7 @@ pub fn get_os_uptime() -> Result<u64, Box<dyn Error>> {
             &mut boot_time as *mut _ as *mut _,
             &mut size,
             std::ptr::null_mut(),
-            0
+            0,
         ) != 0
         {
             return Err(io::Error::last_os_error().into());
@@ -88,7 +91,6 @@ pub fn get_os_uptime_duration() -> Result<Duration, Box<dyn Error>> {
     Ok(Duration::from_millis(ms))
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -96,7 +98,11 @@ mod tests {
     #[test]
     fn it_os_uptime() {
         let uptime = get_os_uptime();
-        assert!(uptime.is_ok(), "Failed to get os uptime: {:?}", uptime.err());
+        assert!(
+            uptime.is_ok(),
+            "Failed to get os uptime: {:?}",
+            uptime.err()
+        );
 
         let uptime_ms = uptime.unwrap();
         assert!(uptime_ms > 0, "Uptime should be greater than 0");
