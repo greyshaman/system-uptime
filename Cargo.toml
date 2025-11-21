@@ -1,9 +1,12 @@
 [package]
 name = "system-uptime"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["Sergey Reshetnikov <shaman@simmirra.com>"]
 license = "MIT"
+repository = "https://github.com/greyshaman/system-uptime"
+homepage = "https://github.com/greyshaman/system-uptime"
+readme = "README.md"
 description = """
 A cross-platform Rust library for retrieving operating system uptime.
 """
