@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Sergey Reshetnikov <shaman@simmirra.com>"]
 license = "MIT"
+description = """
+A cross-platform Rust library for retrieving operating system uptime.
+"""
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3", features = ["sysinfoapi", "errhandlingapi"] }
