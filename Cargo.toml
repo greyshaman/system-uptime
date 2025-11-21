@@ -4,5 +4,8 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Sergey Reshetnikov <shaman@simmirra.com>"]
 
-[dependencies]
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["sysinfoapi", "errhandlingapi"] }
+
+[target.'cfg(any(unix, target_os = "windows"))'.dependencies]
 libc = "0.2"
