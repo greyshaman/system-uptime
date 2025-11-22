@@ -20,7 +20,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-system-uptime = "0.1.0"
+system-uptime = "0.1.2"
 ```
 
 or
