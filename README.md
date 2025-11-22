@@ -1,10 +1,10 @@
 # system-uptime
 
+<center><img src="https://raw.githubusercontent.com/greyshaman/system-uptime/refs/heads/main/images/photo_system-uptime.jpg" width="50%" alt="system-uptime"></center>
+
 [![Crates.io](https://img.shields.io/crates/v/system-uptime.svg)](https://crates.io/crates/system-uptime)
 [![Docs.rs](https://docs.rs/system-uptime/badge.svg)](https://docs.rs/system-uptime)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-<center><img src="https://github.com/greyshaman/system-uptime/blob/main/images/photo_system-uptime.jpg" width="50%" alt="system-uptime"></center>
 
 A cross-platform Rust library for retrieving operating system uptime.
 
